@@ -13,7 +13,7 @@ WORKDIR /app
 COPY ./package*.json ./
 
 # Install node packages
-RUN npm install
+RUN npm install --no-audit --progress=false
 
 # Copy or project directory (locally) in the current directory of our docker image (/app)
 COPY . .
