@@ -10,7 +10,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Copy the app package and package-lock.json file
-COPY ./package*.json ./
+COPY package.json package.json
 
 # Install node packages
 RUN npm install --no-audit --progress=false
