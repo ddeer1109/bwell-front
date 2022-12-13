@@ -14,7 +14,7 @@ const isLocalhost = Boolean(
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
       )
   );
-const APIhost = isLocalhost ? "http://localhost:8080/api/v1" : "https://bwell-backend.herokuapp.com/api/v1"
+const APIhost = "http://localhost:8080/api/v1"
 
 
 const colors = {
