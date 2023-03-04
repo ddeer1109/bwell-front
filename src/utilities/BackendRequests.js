@@ -9,7 +9,7 @@ import _history from "./_history"
 
 const localhost = isLocalhost
 const PORT = process.env.API_PORT || '8080';
-const BASE_URL = localhost ? `http://localhost:${PORT}/api/v1` : `https://bwell-backend.herokuapp.com/api/v1`
+const BASE_URL = `http://localhost:${PORT}/api/v1`
 
 // let currentUserId = await UserService();
 
