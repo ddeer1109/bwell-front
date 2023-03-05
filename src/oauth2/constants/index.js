@@ -1,6 +1,6 @@
 import { endpoints, isLocalhost } from "../../utilities/utilities";
 
-export let API_BASE_URL = isLocalhost ? `http://localhost:8080` : "http://srv16.mikr.us:30193";
+export let API_BASE_URL = isLocalhost ? `http://localhost:8080` : process.env.API_HOST || "http://srv16.mikr.us:30193";
 
 export const ACCESS_TOKEN = "accessToken";
 
