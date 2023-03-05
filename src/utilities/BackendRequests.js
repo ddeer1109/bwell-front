@@ -4,10 +4,10 @@ import { v4 } from "uuid"
 import { ACCESS_TOKEN, API_BASE_URL } from "../oauth2/constants"
 import { Ax } from "./interceptors"
 import UserService from "./UserService"
-import { dietPlanUrls, endpoints, isLocalhost, moduleNameToApi, moduleNameToBackendTag } from "./utilities"
+import { dietPlanUrls, endpoints, moduleNameToApi, moduleNameToBackendTag } from "./utilities"
 import _history from "./_history"
 
-const localhost = isLocalhost
+
 const PORT = process.env.API_PORT || '8080';
 const BASE_URL = API_BASE_URL+"/api/v1"
 
