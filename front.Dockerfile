@@ -1,37 +1,43 @@
+# We don't want to start from scratch.
+# That is why we tell node here to use the current node image as base.
+FROM node:alpine3.11
+VOLUME [ "/data" ]
 
-FROM --platform=$BUILDPLATFORM node:lts AS development
+# Create an application directory
+RUN mkdir -p /app
 
-WORKDIR /code
-COPY package.json /code/package.json
-COPY package-lock.json /code/package-lock.json
+# The /app directory should act as the main application directory
+WORKDIR /app
 
-RUN npm ci
-COPY . /code
+# Copy the app package and package-lock.json file
+COPY ./package*.json ./
 
-ENV CI=true
-ENV PORT=3000
+# Install node packages
+RUN npm install --no-audit --progress=false
+RUN npm install --global serve
 
-CMD [ "npm", "start" ]
+# Expose $PORT on container.
+# We use a varibale here as the port is something that can differ on the environment.
+EXPOSE $PORT
 
-FROM development AS dev-envs
-RUN <<EOF
-apt-get update
-apt-get install -y git
-EOF
+# Set app port
+ENV FRONT_PORT=$FRONT_PORT
+ENV API_PORT=$API_PORT
 
-RUN <<EOF
-useradd -s /bin/bash -m vscode
-groupadd docker
-usermod -aG docker vscode
-EOF
-# install Docker tools (cli, buildx, compose)
-COPY --from=gloursdocker/docker / /
-CMD [ "npm", "start" ]
+# Set the base url
+ENV PROXY_API=$PROXY_API
 
-FROM development AS build
+# Set the browser base url
+ENV PROXY_LOGIN=$PROXY_LOGIN
+# Copy or project directory (locally) in the current directory of our docker image (/app)
+COPY . .
 
-RUN ["npm", "run", "build"]
 
-FROM nginx:1.13-alpine
+# Build the app
+RUN npm run build
 
-COPY --from=build /code/build /usr/share/nginx/html
+
+
+
+# Start the app
+CMD [ "serve", "-s", "build", "-l", "20193" ]

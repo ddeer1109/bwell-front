@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useHistory } from "react-router"
 import { v4 } from "uuid"
-import { ACCESS_TOKEN } from "../oauth2/constants"
+import { ACCESS_TOKEN, API_BASE_URL } from "../oauth2/constants"
 import { Ax } from "./interceptors"
 import UserService from "./UserService"
 import { dietPlanUrls, endpoints, isLocalhost, moduleNameToApi, moduleNameToBackendTag } from "./utilities"
@@ -9,7 +9,7 @@ import _history from "./_history"
 
 const localhost = isLocalhost
 const PORT = process.env.API_PORT || '8080';
-const BASE_URL = `http://localhost:${PORT}/api/v1`
+const BASE_URL = API_BASE_URL+"/api/v1"
 
 // let currentUserId = await UserService();
 

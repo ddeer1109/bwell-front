@@ -4,6 +4,7 @@ import WeekendOutlinedIcon from '@material-ui/icons/WeekendOutlined';
 import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import TextAreaInput from '../components/entrycreator/inputareas/TextAreaInput';
 import IngredientsList from '../components/entrycreator/inputareas/IngredientsList';
+import { API_BASE_URL } from '../oauth2/constants';
 
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
@@ -13,8 +14,8 @@ const isLocalhost = Boolean(
       window.location.hostname.match(
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
       )
-  );
-const APIhost = "http://localhost:8080/api/v1"
+);
+const APIhost = API_BASE_URL + "/api/v1"
 
 
 const colors = {
