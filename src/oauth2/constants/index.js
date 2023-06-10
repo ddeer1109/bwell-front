@@ -1,6 +1,6 @@
 import { endpoints, isLocalhost } from "../../utilities/utilities";
 
-export const API_BASE_URL = isLocalhost ? `http://localhost:8080` : window.location.origin.includes("https:") ? "https://app3" : "http://srv16.mikr.us:30193";
+export const API_BASE_URL = isLocalhost ? `http://localhost:8080` : window.location.origin.includes("https:") ? "https://server.bieda.it" : "http://127.0.0.1:30193";
 
 export const ACCESS_TOKEN = "accessToken";
 
