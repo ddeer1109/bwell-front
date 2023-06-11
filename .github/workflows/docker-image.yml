@@ -60,10 +60,14 @@ jobs:
         # PowerShell script to execute in Actions-hydrated context
         script: |
             $baseurl = 'https://api.mikr.us/exec'
-          
+            echo "$API_KEY"
+            echo "$env:API_KEY"
+            
+            echo $API_KEY
+            echo $env:API_KEY
             $body = @{
                 srv='m193'
-                key=$env:API_KEY
+                key=$API_KEY
                 cmd="setsid bash refresh-images.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
             }
 
