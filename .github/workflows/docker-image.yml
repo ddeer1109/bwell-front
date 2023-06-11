@@ -26,5 +26,25 @@ jobs:
       run: docker build . --file front.Dockerfile --tag ddeer1109/bwell:frontend
     - name: Push to Dockerhub
       run: docker push ddeer1109/bwell:frontend
+    - name: Refresh images on server
+      run: |
+        baseurl="https://api.mikr.us"
+
+        baseurl="$baseurl/exec"
+        echo "$baseUrl"
+
+        body=$(cat <<EOF
+        {
+          "srv": "m193",
+          "key": "$API_KEY",
+          "cmd": "setsid bash refresh-images.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
+        }
+        EOF
+        )
+
+        resp=$(curl -s -X POST -d "$body" "$baseurl")
+        echo "$resp"
+        output=$(jq -r '.output' <<< "$resp")
+        echo "$output"
 
     
