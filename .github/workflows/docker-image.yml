@@ -70,7 +70,7 @@ jobs:
             $body = @{
                 srv='m193'
                 key=$env:API_KEY
-                cmd="setsid bash refresh-images.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
+                cmd="setsid bash deploy.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
             }
 
             $resp = Invoke-WebRequest -Method POST -Body $body $baseurl
