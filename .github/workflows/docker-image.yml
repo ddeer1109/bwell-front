@@ -56,23 +56,27 @@ jobs:
       # You may pin to the exact commit or the version.
       # uses: Amadevus/pwsh-script@97a8b211a5922816aa8a69ced41fa32f23477186
       uses: Amadevus/pwsh-script@v2.0.3
+      
       with:
+        
         # PowerShell script to execute in Actions-hydrated context
         script: |
             $baseurl = 'https://api.mikr.us/exec'
              $API_KEY
              $env:API_KEY
             
-            API_KEY
+            $API_KEY
             $env:API_KEY
             $body = @{
                 srv='m193'
-                key=$API_KEY
+                key=$env:API_KEY
                 cmd="setsid bash refresh-images.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
             }
 
             $resp = Invoke-WebRequest -Method POST -Body $body $baseurl
             $resp.content
             $resp.content.output
+            return $env:API_KEY
+        run: echo "${{ steps.my-script.outputs.result }}"
 
     
