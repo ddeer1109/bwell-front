@@ -1,12 +1,10 @@
 import { makeStyles } from '@material-ui/core'
-import { mergeClasses } from '@material-ui/styles'
 import React, { useEffect, useState } from 'react'
-import { useRouteMatch } from 'react-router'
 import { eatWell } from '../../../utilities/BackendRequests'
 import UserService from '../../../utilities/UserService'
 import { dietPlanUrls } from '../../../utilities/utilities'
 import EventButton from '../../reuseable/EventButton'
-import { Redirect, useHistory, useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 
 const MealChoiceButtons = ({modalCloseCallback}) => {
 
