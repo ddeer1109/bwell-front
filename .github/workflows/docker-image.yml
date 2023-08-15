@@ -26,47 +26,12 @@ jobs:
       run: docker build . --file front.Dockerfile --tag ddeer1109/bwell:frontend
     - name: Push to Dockerhub
       run: docker push ddeer1109/bwell:frontend
-  refresh_image:
-    runs-on: ubuntu-latest
-    steps:
-#     - name: Refresh images on server
-
-#       run: |
-#         baseurl="https://api.mikr.us"
-
-#         baseurl="$baseurl/exec"
-#         echo "$baseUrl"
-
-#         body=$(cat <<EOF
-#         {
-#           "srv": "m193",
-#           "key": "$API_KEY",
-#           "cmd": "setsid bash refresh-images.sh >/logs/logs.txt 2>&1 < /logs/logs.txt &"
-#         }
-#         EOF
-#         )
-
-#         resp=$(curl -s -X POST -d "$body" "$baseurl")
-#         echo "$resp"
-#         output=$(jq -r '.output' <<< "$resp")
-#         echo "$output"
-    - name: PowerShell script
-      env:
-        API_KEY: ${{ secrets.MIKR_API_KEY }}
-      # You may pin to the exact commit or the version.
-      # uses: Amadevus/pwsh-script@97a8b211a5922816aa8a69ced41fa32f23477186
-      uses: Amadevus/pwsh-script@v2.0.3
       
       with:
         
         # PowerShell script to execute in Actions-hydrated context
         script: |
             $baseurl = 'https://api.mikr.us/exec'
-             $API_KEY
-             $env:API_KEY
-            
-            $API_KEY
-            $env:API_KEY
             $body = @{
                 srv='m193'
                 key=$env:API_KEY
@@ -79,4 +44,21 @@ jobs:
             return $env:API_KEY
         run: echo "${{ steps.my-script.outputs.result }}"
 
-    
+  
+  sshDeploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          ls -al
+          bash /deploy.sh
+          docker ps
+
+  
