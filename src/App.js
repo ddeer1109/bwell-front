@@ -214,6 +214,7 @@ function App(props) {
         </Grid>
         <Grid item>
           <Footer logo={logo_mini} />
+
         </Grid>
       </Grid>
     );
