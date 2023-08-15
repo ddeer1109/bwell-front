@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           logout: false
     - name: Build the Docker image
-      run: docker build . --file front.Dockerfile --tag ddeer1109/bwell:frontend
+      run: docker build . --tag ddeer1109/bwell:frontend
     - name: Push to Dockerhub
       run: docker push ddeer1109/bwell:frontend
 
