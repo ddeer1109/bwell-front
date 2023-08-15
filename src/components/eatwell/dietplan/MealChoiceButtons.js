@@ -6,6 +6,7 @@ import { eatWell } from '../../../utilities/BackendRequests'
 import UserService from '../../../utilities/UserService'
 import { dietPlanUrls } from '../../../utilities/utilities'
 import EventButton from '../../reuseable/EventButton'
+import { Redirect, useHistory, useRouteMatch } from 'react-router';
 
 const MealChoiceButtons = ({modalCloseCallback}) => {
 
@@ -24,8 +25,11 @@ const MealChoiceButtons = ({modalCloseCallback}) => {
             display: "flex",
         }
     })
+    const history = useHistory();
+    const {params} = useRouteMatch()
     const classes = useStyles()
     const [userId, setUserId] = useState(0)
+
     useEffect(() => {
         // setRecipe(fake_getRecipe(Number(props.match.params.id)))
         const getUser = async () => {
@@ -33,14 +37,15 @@ const MealChoiceButtons = ({modalCloseCallback}) => {
             setUserId(userId)
         }
         getUser()
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    const {params} = useRouteMatch()
     const handleClick = (meal) => {
         
         eatWell.setRecipeAsMeal(params.id, meal)
+        setTimeout(() => {
+            history.push('/eatwell/dietplan');
+        }, 2000)
         modalCloseCallback()
+
     }
     return (
         <div>
